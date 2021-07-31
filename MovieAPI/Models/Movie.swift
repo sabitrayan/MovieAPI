@@ -12,4 +12,5 @@ struct Movie {
     let title: String
     let rating: Double
     let coverImageURL: String
+    let releaseDate: String
 }

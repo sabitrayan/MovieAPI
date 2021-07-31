@@ -63,7 +63,6 @@ class MovieListVM {
             }
     }
 
-
     func clearObservation() {
         disposes.dispose()
     }
@@ -77,7 +76,11 @@ struct MovieVM {
     }
 
     var rating: String {
-        return "Rating: \(movie.rating)"
+        return "\(movie.rating)"
+    }
+
+    var releaseDate: String {
+        return movie.releaseDate
     }
 
     var coverImageURL: String {

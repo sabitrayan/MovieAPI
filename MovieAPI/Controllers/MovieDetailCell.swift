@@ -25,19 +25,12 @@ class MovieDetailCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        let stack = UIStackView(arrangedSubviews: [descriptionLabel])
-        stack.axis = .vertical
-        stack.spacing = 5
-        stack.alignment = .leading
-        addSubview(stack)
-        stack.anchor(top: self.topAnchor,
-                     left: self.safeAreaLayoutGuide.leftAnchor,
-                     bottom: self.bottomAnchor,
-                     right: self.safeAreaLayoutGuide.rightAnchor,
-                     paddingTop: 20,
-                     paddingLeft: 12,
-                     paddingBottom: 20,
-                     paddingRight: 12)
+        contentView.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.231372549, blue: 0.2862745098, alpha: 1)
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview().inset(10)
+        }
     }
 
     required init?(coder: NSCoder) {

@@ -5,7 +5,6 @@
 //  Created by ryan on 7/30/21.
 //
 
-
 import Foundation
 import ReactiveSwift
 
@@ -24,6 +23,7 @@ struct MovieResult: Decodable {
     var posterPath: String?
     var backdropPath: String?
     var overview: String
+    var releaseDate: String
 }
 
 enum MoviePropertyType {
@@ -54,7 +54,7 @@ class MovieService: MovieServiceProtocol {
 
                 do {
                     let jsonData = try decoder.decode(Movies.self, from: data)
-
+                  
                     jsonData.results.forEach { (movieResult) in
                         var coverImageURL: String?
 
@@ -66,7 +66,10 @@ class MovieService: MovieServiceProtocol {
                         let movie = Movie(id: movieResult.id,
                                           title: movieResult.title,
                                           rating: movieResult.voteAverage,
-                                          coverImageURL: coverImageURL ?? "")
+                                          coverImageURL: coverImageURL ?? "",
+                                          releaseDate: movieResult.releaseDate
+                                          )
+
                         movies.append(movie)
                     }
 
@@ -83,9 +86,7 @@ class MovieService: MovieServiceProtocol {
         }.resume()
     }
 
-    // MARK: - Fetch Movies
     func fetchMovies() -> SignalProducer<[Movie], Error> {
-
 
         resourceURL = URL(string: nowPlayingQuery + "\(currentMoviePage)")
 
@@ -99,8 +100,6 @@ class MovieService: MovieServiceProtocol {
     }
 
 
-
-    // MARK: Fetch movie detail
     func fetchMovieDetail(id: Int) -> SignalProducer<MovieDetail, Error> {
 
         return SignalProducer { observer, _ in
@@ -118,7 +117,6 @@ class MovieService: MovieServiceProtocol {
                 }
 
 
-                // Handle data
                 if let data = data {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -136,13 +134,6 @@ class MovieService: MovieServiceProtocol {
                 }
 
             }.resume()
-
         }
-
-    }
-
-    // MARK: Fetch Movie Cast
-    func fetchMovieProperty(id: Int, type: MoviePropertyType) {
-
     }
 }

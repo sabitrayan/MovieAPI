@@ -23,13 +23,12 @@ class MovieListVC: UITableViewController {
         setupTableView()
         setupObserver()
         viewModel.fetchMovies()
+        
     }
-
-
 
     private func setupNavigationBar() {
         navigationItem.title = "News"
-        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.1450980392, green: 0.231372549, blue: 0.2862745098, alpha: 1)
     }
 
     private func setupObserver() {
@@ -47,6 +46,7 @@ class MovieListVC: UITableViewController {
         tableView.rowHeight = 400
         tableView.showsVerticalScrollIndicator = false
     }
+
 }
 
 
@@ -79,7 +79,6 @@ extension MovieListVC {
         let controller = MovieDetailVC(id: selectedMovieId)
         navigationController?.pushViewController(controller, animated: true)
     }
-
 }
 
 extension MovieListVC {

@@ -31,7 +31,13 @@ class MovieDetailVC: UITableViewController {
         setupObserver()
         viewModel.fetchMovieDetail(id: id)
     }
-
+   // setupConstraints()
+   //    private func setupConstraints(){
+   //        view.addSubview(tableView)
+   //        tableView.snp.makeConstraints { make in
+   //            make.bottom.top.left.right.equalToSuperview()
+   //        }
+   //    }
     private func setupTableView() {
         tableView.register(MovieDetailCell.self, forCellReuseIdentifier: MovieDetailCell.reuseIdentifier)
         tableView.bounces = false
