@@ -27,12 +27,10 @@ class MovieListCell: UITableViewCell {
 
     private let movieImageView: UIImageView = {
         let iv = UIImageView()
-        iv.layer.cornerRadius = 10
-        iv.layer.masksToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 0
         iv.clipsToBounds = true
-
+        iv.layer.cornerRadius = 15
         return iv
     }()
 
@@ -47,7 +45,7 @@ class MovieListCell: UITableViewCell {
 
     private let ratingLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         label.textAlignment = .center
         return label
@@ -55,7 +53,7 @@ class MovieListCell: UITableViewCell {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.textAlignment = .center
         return label
@@ -129,13 +127,12 @@ class MovieListCell: UITableViewCell {
 
         circleRatingView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
-            make.left.equalToSuperview().offset(20)
+            make.left.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.width.equalTo(50)
         }
         ratingLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-
             make.height.equalTo(50)
             make.width.equalTo(50)
         }
@@ -147,7 +144,7 @@ class MovieListCell: UITableViewCell {
 
         circleStarView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
-            make.right.equalToSuperview().offset(10)
+            make.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.width.equalTo(50)
         }
@@ -156,20 +153,20 @@ class MovieListCell: UITableViewCell {
             stackViewPage.addArrangedSubview($0)
         }
         movieImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(10)
             make.right.left.equalToSuperview().inset(20)
         }
 
         spaceView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.height.equalTo(10)
+            make.height.equalTo(5)
             make.bottom.equalToSuperview()
             make.top.equalTo(movieImageView.snp.bottom).offset(5)
         }
 
         stackViewPage.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(50)
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(200)
         }
     }
 

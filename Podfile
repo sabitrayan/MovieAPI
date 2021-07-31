@@ -9,6 +9,7 @@ target 'MovieAPI' do
   pod 'SnapKit'
   pod 'ReactiveSwift', '~> 6.1'
   pod 'SDWebImage', '~> 5.0'
+  pod 'ReactiveCocoa', '~> 11.1'
 
 
   target 'MovieAPITests' do

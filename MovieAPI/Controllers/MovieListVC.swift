@@ -23,7 +23,6 @@ class MovieListVC: UITableViewController {
         setupTableView()
         setupObserver()
         viewModel.fetchMovies()
-        
     }
 
     private func setupNavigationBar() {
@@ -44,9 +43,8 @@ class MovieListVC: UITableViewController {
         tableView.register(MovieListCell.self, forCellReuseIdentifier: MovieListCell.reuseIdentifier)
         tableView.tableFooterView = UIView()
         tableView.rowHeight = 400
-        tableView.showsVerticalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = true
     }
-
 }
 
 
@@ -59,7 +57,7 @@ extension MovieListVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListCell.reuseIdentifier, for: indexPath) as? MovieListCell else {
             return UITableViewCell()
         }
-        cell.accessoryType = .disclosureIndicator
+//        cell.accessoryType = .disclosureIndicator
 
         let movie = viewModel.movieAtIndex(indexPath.row)
         cell.viewModel = MovieVM(movie: movie)
@@ -76,7 +74,8 @@ extension MovieListVC {
         else { return }
 
         let selectedMovieId = viewModel.movieAtIndex(index).id
-        let controller = MovieDetailVC(id: selectedMovieId)
+        let controller = MovieDetailVC_2()
+        controller.id = selectedMovieId
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -84,15 +83,14 @@ extension MovieListVC {
 extension MovieListVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let id = viewModel.movieAtIndex(indexPath.row).id
-        let controller = MovieDetailVC(id: id)
+        let controller = MovieDetailVC_2()
+        controller.id = id
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 extension MovieListVC {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        navigationItem.rightBarButtonItem?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.viewModel.fetchMoreMovies()
         }

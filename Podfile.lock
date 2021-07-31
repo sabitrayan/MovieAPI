@@ -1,4 +1,6 @@
 PODS:
+  - ReactiveCocoa (11.2.1):
+    - ReactiveSwift (~> 6.6)
   - ReactiveSwift (6.6.1)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
@@ -6,21 +8,24 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - ReactiveCocoa (~> 11.1)
   - ReactiveSwift (~> 6.1)
   - SDWebImage (~> 5.0)
   - SnapKit
 
 SPEC REPOS:
   trunk:
+    - ReactiveCocoa
     - ReactiveSwift
     - SDWebImage
     - SnapKit
 
 SPEC CHECKSUMS:
+  ReactiveCocoa: 194289e7069037d40c59cb4ae9230f4b1ec05fa8
   ReactiveSwift: fab34244ad908808dc822bae352a058c8837c4ca
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 1dbf3c4c634fad622a16bec60ba2ec4f1db1ea68
+PODFILE CHECKSUM: 3cf3afbc8975daeb042907b8a1c3e29d57e1e843
 
 COCOAPODS: 1.10.1

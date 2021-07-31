@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-MovieAPI/Pods-MovieAPI-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework
 ${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework

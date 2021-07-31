@@ -28,7 +28,6 @@ class MovieDetailVM {
                 case .failure(let error):
                     print(error)
                 }
-
             }
     }
 
@@ -52,7 +51,6 @@ class MovieDetailVM {
         return "\(title) (\(year.components(separatedBy: "-")[0]))"
     }
 
-   
     var detailImageUrl: String {
         return "https://image.tmdb.org/t/p/original\(movieDetail.value?.backdropPath ?? "")"
     }
@@ -65,4 +63,7 @@ class MovieDetailVM {
         return movieDetail.value?.homepage ?? "No homepage"
     }
 
+    var rating: Double {
+        return movieDetail.value?.voteAverage ?? 0
+    }
 }
