@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol MovieDetailHeaderDelegate: AnyObject {
-    func didTapFavoriteButton()
+    func didTapFavoriteButton(isFavorite: Bool)
 }
 
 class MovieListCell: UITableViewCell {
@@ -88,7 +88,7 @@ class MovieListCell: UITableViewCell {
         isFavorite ?
             (favoriteView.image = UIImage(systemName: "star.fill")) :
             (favoriteView.image = UIImage(systemName: "star"))
-        delegate?.didTapFavoriteButton()
+        delegate?.didTapFavoriteButton(isFavorite: isFavorite)
     }
 
 

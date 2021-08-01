@@ -69,7 +69,7 @@ class MovieDetailVC_2: UIViewController {
         return label
     }()
 
-    lazy var favoriteView: UIImageView = {
+    private lazy var favoriteView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.image = UIImage(systemName: "star")
@@ -86,7 +86,7 @@ class MovieDetailVC_2: UIViewController {
         isFavorite ?
             (favoriteView.image = UIImage(systemName: "star.fill")) :
             (favoriteView.image = UIImage(systemName: "star"))
-        delegate?.didTapFavoriteButton()
+        delegate?.didTapFavoriteButton(isFavorite: isFavorite)
     }
 
 
@@ -114,9 +114,18 @@ class MovieDetailVC_2: UIViewController {
         setupConstraints()
         setupObserver()
         view.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.231372549, blue: 0.2862745098, alpha: 1)
+        setupNavigationBar()
         DispatchQueue.main.async { [self] in
             viewModel.fetchMovieDetail(id: id ?? 10)
         }
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.title = "News"
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.1450980392, green: 0.231372549, blue: 0.2862745098, alpha: 1)
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
     }
 
     private func setupObserver() {
@@ -128,6 +137,7 @@ class MovieDetailVC_2: UIViewController {
                 self?.movieImageView.sd_setImage(with: url)
             }
             self?.descriptionLabel.text = self?.viewModel.overview
+            self?.navigationItem.title = self?.viewModel.title
         }
     }
 
@@ -136,13 +146,13 @@ class MovieDetailVC_2: UIViewController {
         view.addSubview(dateLabel)
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
-        movieImageView.addSubview(circleStarView)
-        movieImageView.addSubview(circleRatingView)
+        view.addSubview(circleStarView)
+        view.addSubview(circleRatingView)
         circleRatingView.addSubview(ratingLabel)
         circleStarView.addSubview(favoriteView)
 
         circleRatingView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(110)
             make.left.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.width.equalTo(50)
@@ -159,7 +169,7 @@ class MovieDetailVC_2: UIViewController {
         }
 
         circleStarView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(110)
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
             make.width.equalTo(50)

@@ -11,6 +11,7 @@ import ReactiveSwift
 private let nowPlayingQuery = QueryLink.shared.nowPlaying
 private var coverImageHeaderQuery = QueryLink.shared.coverImageHeader
 private var detailImageHeaderQuery = QueryLink.shared.detailImageHeader
+private let searchQuery = QueryLink.shared.search
 
 struct Movies: Decodable {
     var results: [MovieResult]
@@ -35,6 +36,7 @@ enum MoviePropertyType {
 
 protocol MovieServiceProtocol {
     func fetchMovies() -> SignalProducer<[Movie], Error>
+    func searchMovies(_ searchKey: String) -> SignalProducer<[Movie], Error>
     func fetchMovieDetail(id: Int) -> SignalProducer<MovieDetail, Error>
     var currentMoviePage: Int { get set }
 }
@@ -67,7 +69,7 @@ class MovieService: MovieServiceProtocol {
                                           title: movieResult.title,
                                           rating: movieResult.voteAverage,
                                           coverImageURL: coverImageURL ?? "",
-                                          releaseDate: movieResult.releaseDate
+                                          releaseDate: movieResult.releaseDate, isFavorite: false
                                           )
 
                         movies.append(movie)
@@ -99,6 +101,18 @@ class MovieService: MovieServiceProtocol {
         }
     }
 
+    func searchMovies(_ searchKey: String) -> SignalProducer<[Movie], Error> {
+        return SignalProducer { [weak self] observer, _ in
+            let transformSearchKey = searchKey.replacingOccurrences(of: " ", with: "%20")
+
+            guard let resourceURL = URL(string: searchQuery + transformSearchKey) else {
+                observer.sendCompleted()
+                return
+            }
+
+            self?.handleURLSession(resourceURL, observer)
+        }
+    }
 
     func fetchMovieDetail(id: Int) -> SignalProducer<MovieDetail, Error> {
 

@@ -13,4 +13,5 @@ struct Movie {
     let rating: Double
     let coverImageURL: String
     let releaseDate: String
+    var isFavorite: Bool
 }

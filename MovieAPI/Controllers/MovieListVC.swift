@@ -33,12 +33,40 @@ class MovieListVC: UITableViewController {
     private func setupObserver() {
         viewModel.movies.producer.startWithResult { [weak self] _ in
             guard let self = self else { return }
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
             self.tableView.refreshControl?.endRefreshing()
             self.tableView.tableFooterView = nil
             self.tableView.reloadData()
         }
     }
+
+    private lazy var searchButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        button.backgroundColor = .systemOrange
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.layer.cornerRadius = 25
+        button.addShadow()
+        button.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
+        return button
+    }()
+
+    @objc private func didTapSearchButton() {
+        let controller = MovieSearchVC()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.superview!.addSubview(searchButton)
+        //tableView.addSubview(searchButton)
+        searchButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(70)
+            make.right.equalToSuperview().inset(70)
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
+    }
+
     private func setupTableView() {
         tableView.register(MovieListCell.self, forCellReuseIdentifier: MovieListCell.reuseIdentifier)
         tableView.tableFooterView = UIView()
@@ -85,6 +113,8 @@ extension MovieListVC {
         let id = viewModel.movieAtIndex(indexPath.row).id
         let controller = MovieDetailVC_2()
         controller.id = id
+        controller.isFavorite = viewModel.movieAtIndex(indexPath.row).isFavorite
+
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -94,5 +124,11 @@ extension MovieListVC {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.viewModel.fetchMoreMovies()
         }
+    }
+}
+
+extension MovieListVC: MovieDetailHeaderDelegate {
+    func didTapFavoriteButton(isFavorite: Bool) {
+        
     }
 }
